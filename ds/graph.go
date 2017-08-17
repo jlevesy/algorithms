@@ -70,7 +70,7 @@ func HasPathToBFS(root *GraphNode, id rune) bool {
 	queue := graphNodeQueue{}
 	visited := map[rune]struct{}{}
 
-	queue.PushBack(root)
+	queue.Push(root)
 
 	for !queue.Empty() {
 		node, ok := queue.Pop()
@@ -89,7 +89,7 @@ func HasPathToBFS(root *GraphNode, id rune) bool {
 			return true
 		}
 
-		queue.PushBack(node.links...)
+		queue.Push(node.links...)
 	}
 
 	return false
@@ -97,7 +97,7 @@ func HasPathToBFS(root *GraphNode, id rune) bool {
 
 type graphNodeQueue []*GraphNode
 
-func (g *graphNodeQueue) PushBack(nodes ...*GraphNode) {
+func (g *graphNodeQueue) Push(nodes ...*GraphNode) {
 	*g = append(*g, nodes...)
 }
 

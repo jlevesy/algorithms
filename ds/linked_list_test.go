@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func equals(l1, l2 *Node) bool {
+func equals(l1, l2 *LinkedListNode) bool {
 	n1, n2 := l1, l2
 	for n1 != nil && n2 != nil {
 		if n2 == nil || n1.value != n2.value {
@@ -25,17 +25,17 @@ func equals(l1, l2 *Node) bool {
 func TestLinkedList(t *testing.T) {
 	insertCases := []struct {
 		Label       string
-		List        *Node
+		List        *LinkedListNode
 		Index       int
-		Node        *Node
-		Expectation *Node
+		Node        *LinkedListNode
+		Expectation *LinkedListNode
 	}{
 		{
 			"NominalCase",
-			&Node{12, &Node{14, &Node{5, nil}}},
+			&LinkedListNode{12, &LinkedListNode{14, &LinkedListNode{5, nil}}},
 			1,
-			&Node{5, nil},
-			&Node{12, &Node{5, &Node{14, &Node{5, nil}}}},
+			&LinkedListNode{5, nil},
+			&LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{14, &LinkedListNode{5, nil}}}},
 		},
 	}
 
@@ -51,17 +51,17 @@ func TestLinkedList(t *testing.T) {
 
 	deleteCases := []struct {
 		Label       string
-		List        *Node
+		List        *LinkedListNode
 		Index       int
-		Expectation *Node
-		DelNode     *Node
+		Expectation *LinkedListNode
+		DelNode     *LinkedListNode
 	}{
 		{
 			"NominalCase",
-			&Node{12, &Node{14, &Node{5, nil}}},
+			&LinkedListNode{12, &LinkedListNode{14, &LinkedListNode{5, nil}}},
 			1,
-			&Node{12, &Node{5, nil}},
-			&Node{14, nil},
+			&LinkedListNode{12, &LinkedListNode{5, nil}},
+			&LinkedListNode{14, nil},
 		},
 	}
 
@@ -77,18 +77,18 @@ func TestLinkedList(t *testing.T) {
 
 	removeDupCases := []struct {
 		Label       string
-		List        *Node
-		Expectation *Node
+		List        *LinkedListNode
+		Expectation *LinkedListNode
 	}{
 		{
 			"WithMultipleDuplicates",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
-			&Node{10, &Node{5, &Node{12, &Node{32, nil}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{32, nil}}}},
 		},
 		{
 			"WithDuplicatesOfFirstItem",
-			&Node{10, &Node{10, &Node{10, &Node{10, &Node{10, nil}}}}},
-			&Node{10, nil},
+			&LinkedListNode{10, &LinkedListNode{10, &LinkedListNode{10, &LinkedListNode{10, &LinkedListNode{10, nil}}}}},
+			&LinkedListNode{10, nil},
 		},
 	}
 
@@ -104,15 +104,15 @@ func TestLinkedList(t *testing.T) {
 
 	backCases := []struct {
 		Label       string
-		List        *Node
+		List        *LinkedListNode
 		K           int
-		Expectation *Node
+		Expectation *LinkedListNode
 	}{
 		{
 			"NominalCase",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 			1,
-			&Node{5, nil},
+			&LinkedListNode{5, nil},
 		},
 	}
 
@@ -131,9 +131,9 @@ func TestLinkedList(t *testing.T) {
 		})
 	}
 
-	secondPart := &Node{10, &Node{5, nil}}
-	list := &Node{10, &Node{5, &Node{12, &Node{5, &Node{32, secondPart}}}}}
-	expectation := &Node{10, &Node{5, &Node{12, &Node{5, &Node{32, &Node{5, nil}}}}}}
+	secondPart := &LinkedListNode{10, &LinkedListNode{5, nil}}
+	list := &LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, secondPart}}}}}
+	expectation := &LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, &LinkedListNode{5, nil}}}}}}
 
 	DeleteNodeBetter(secondPart)
 
@@ -143,33 +143,33 @@ func TestLinkedList(t *testing.T) {
 
 	partitionCase := []struct {
 		Label       string
-		List        *Node
+		List        *LinkedListNode
 		Value       int32
-		Expectation *Node
+		Expectation *LinkedListNode
 	}{
 		{
 			"NominalCase",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 			12,
-			&Node{10, &Node{5, &Node{5, &Node{12, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{32, nil}}}}},
 		},
 		{
 			"WithMaxValue",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 			32,
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 		},
 		{
 			"WithNotPresentValue",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 			15,
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 		},
 		{
 			"WithMultipleEqualsValue",
-			&Node{10, &Node{5, &Node{12, &Node{5, &Node{32, nil}}}}},
+			&LinkedListNode{10, &LinkedListNode{5, &LinkedListNode{12, &LinkedListNode{5, &LinkedListNode{32, nil}}}}},
 			5,
-			&Node{5, &Node{5, &Node{10, &Node{12, &Node{32, nil}}}}},
+			&LinkedListNode{5, &LinkedListNode{5, &LinkedListNode{10, &LinkedListNode{12, &LinkedListNode{32, nil}}}}},
 		},
 	}
 

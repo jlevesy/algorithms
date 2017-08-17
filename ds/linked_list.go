@@ -1,13 +1,13 @@
 package ds
 
-// Node is a node of a linked list
-type Node struct {
+// LinkedListNode is a node of a linked list
+type LinkedListNode struct {
 	value int32
-	next  *Node
+	next  *LinkedListNode
 }
 
 // Insert inserts a node in a given list at a given index
-func Insert(head *Node, index int, node *Node) *Node {
+func Insert(head *LinkedListNode, index int, node *LinkedListNode) *LinkedListNode {
 	if head == nil {
 		return node
 	}
@@ -38,7 +38,7 @@ func Insert(head *Node, index int, node *Node) *Node {
 // At retrieves a node at a given index
 // Time complexity: O(n)
 // Space complexity: O(1)
-func At(head *Node, index int) *Node {
+func At(head *LinkedListNode, index int) *LinkedListNode {
 	if head == nil {
 		return nil
 	}
@@ -57,7 +57,7 @@ func At(head *Node, index int) *Node {
 // Length returns the length of a list
 // Time complexity: O(n)
 // Space complexity: O(1)
-func Length(head *Node) int {
+func Length(head *LinkedListNode) int {
 	node := head
 	length := 0
 
@@ -72,7 +72,7 @@ func Length(head *Node) int {
 // Delete deletes a node from a linked list at a given index
 // Time complexity: O(n)
 // Space complexity: O(1)
-func Delete(head *Node, index int) *Node {
+func Delete(head *LinkedListNode, index int) *LinkedListNode {
 	if head == nil {
 		return nil
 	}
@@ -111,7 +111,7 @@ func Delete(head *Node, index int) *Node {
 // For each item in the loop compare with all other items exept itself
 // - Time complexity O(n²)
 // - Space complexity O(1)
-func RemoveDuplicates(list *Node) *Node {
+func RemoveDuplicates(list *LinkedListNode) *LinkedListNode {
 	if list == nil {
 		return nil
 	}
@@ -150,7 +150,7 @@ func RemoveDuplicates(list *Node) *Node {
 // Idea 2: Get the length of the list, go to the n-1-kth item
 // - Time complexity O(2n) (worst case)
 // - Space complexity O(1)
-func Back(head *Node, k int) *Node {
+func Back(head *LinkedListNode, k int) *LinkedListNode {
 	length := Length(head)
 	return At(head, length-k-1)
 }
@@ -158,12 +158,12 @@ func Back(head *Node, k int) *Node {
 // BackRecursive deals with the same problem but does it recursively
 // - Time O(n)
 // - Space O(n)
-func BackRecursive(head *Node, k int) *Node {
+func BackRecursive(head *LinkedListNode, k int) *LinkedListNode {
 	node, _ := backRecursion(head, k)
 	return node
 }
 
-func backRecursion(head *Node, k int) (*Node, int) {
+func backRecursion(head *LinkedListNode, k int) (*LinkedListNode, int) {
 	if head == nil {
 		return nil, 0
 	}
@@ -191,11 +191,11 @@ func backRecursion(head *Node, k int) (*Node, int) {
 // Idea 2: Why do we need a recursion
 // Time complexity: O(n) (n is length from node to end)
 // Space complexity: O(n) (recursion, d'uh)
-func DeleteNode(node *Node) {
+func DeleteNode(node *LinkedListNode) {
 	deleteNodeRecursion(node.next, node)
 }
 
-func deleteNodeRecursion(current, previous *Node) bool {
+func deleteNodeRecursion(current, previous *LinkedListNode) bool {
 	if current == nil {
 		return true
 	}
@@ -218,7 +218,7 @@ func deleteNodeRecursion(current, previous *Node) bool {
 // given only access to that node
 // Time complexity: O(n) (n is length from node to end)
 // Space complexity: O(1)
-func DeleteNodeBetter(node *Node) {
+func DeleteNodeBetter(node *LinkedListNode) {
 	for node != nil {
 		if node.next != nil {
 			node.value = node.next.value
@@ -246,8 +246,8 @@ func DeleteNodeBetter(node *Node) {
 // - 1 with nodes equals
 // - 1 with nodel bigger
 // Then concat and return the new head
-func PartitionAroundValue(head *Node, value int32) *Node {
-	var current, lower, lastLower, equal, lastEqual, bigger, lastBigger, list, lastList *Node
+func PartitionAroundValue(head *LinkedListNode, value int32) *LinkedListNode {
+	var current, lower, lastLower, equal, lastEqual, bigger, lastBigger, list, lastList *LinkedListNode
 	current = head
 
 	for current != nil {
@@ -277,7 +277,7 @@ func PartitionAroundValue(head *Node, value int32) *Node {
 	return list
 }
 
-func appendList(head, last, appendHead, appendLast *Node) (*Node, *Node) {
+func appendList(head, last, appendHead, appendLast *LinkedListNode) (*LinkedListNode, *LinkedListNode) {
 	if head == nil {
 		head, last = appendHead, appendLast
 	} else {
