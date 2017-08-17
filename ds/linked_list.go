@@ -240,7 +240,7 @@ func DeleteNodeBetter(node *Node) {
 // - Multiple node with the same value ? yes
 // - Is the value mandatorily present in the list ? Nope
 // - Is the sections supposed to be sorted ? nope
-// - Am I authorized to destroy the old list ? Yes
+// - Am I authorized to mutate the old list ? Yes
 // Idea 1: build three lists
 // - 1 with nodes lower
 // - 1 with nodes equals
