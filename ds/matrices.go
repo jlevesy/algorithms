@@ -1,4 +1,4 @@
-package matrices
+package ds
 
 // RotateMatrixRight rotates given matrix 90 degrees to the right
 // Time O(n^2)

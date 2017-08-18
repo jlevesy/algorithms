@@ -1,4 +1,4 @@
-package matrices
+package ds
 
 import (
 	"reflect"
@@ -23,6 +23,20 @@ func TestRotateMatrixRight(t *testing.T) {
 				{8, 5, 2},
 				{9, 6, 3},
 			},
+		},
+		{
+			"With1x1Matrix",
+			[][]int32{
+				{1},
+			},
+			[][]int32{
+				{1},
+			},
+		},
+		{
+			"WithEmptyMAtrix",
+			[][]int32{},
+			[][]int32{},
 		},
 	}
 
@@ -54,6 +68,20 @@ func TestZeroRowAndColumn(t *testing.T) {
 				{0, 5, 6, 0},
 				{0, 0, 0, 0},
 			},
+		},
+		{
+			"With1x1Matrix",
+			[][]int32{
+				{1},
+			},
+			[][]int32{
+				{1},
+			},
+		},
+		{
+			"WithEmptyMAtrix",
+			[][]int32{},
+			[][]int32{},
 		},
 	}
 
