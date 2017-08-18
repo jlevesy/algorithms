@@ -6,6 +6,7 @@ type GraphNode struct {
 	links []*GraphNode
 }
 
+// AddLinks adds a link to a node
 func (g *GraphNode) AddLinks(node ...*GraphNode) {
 	g.links = append(g.links, node...)
 }
