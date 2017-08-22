@@ -41,6 +41,8 @@ func NewMultiStack(stacks, size int) *MultiStack {
 	}
 }
 
+// Empty returns true if the given stack doesn't exist
+// or exists and in empty. else false
 func (m *MultiStack) Empty(stackID int) bool {
 	if stackID > len(m.indexes) {
 		return true
@@ -68,6 +70,7 @@ func (m *MultiStack) Pop(stackID int) (uint32, error) {
 	return item, nil
 }
 
+// Push push an item onto the given stack
 func (m *MultiStack) Push(stackID int, item uint32) error {
 	if stackID > len(m.indexes) {
 		return errors.New("Stack does not exist")
@@ -93,5 +96,12 @@ func (m *MultiStack) doubleStorage() {
 	newBuf := make([]uint32, 2*len(m.storage))
 	copy(newBuf, m.storage)
 	m.storage = newBuf
-
 }
+
+// Hanoi problem
+// - 3 towers of n disks
+// - 1 tower with disks sorted in ascending order ( disk always sorted of a larger one)
+// - Only one disk can be moved at a time
+// - A disk slid off the top of one tower onto the next tower
+// - A disk can be placed on top of a larger disk
+// Write a program to move the disks from the first tower to the last using stacks.
