@@ -146,3 +146,9 @@ func TestCompressString(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkCompressSting(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CompressString([]rune("aaaaaaabbbbbbbbbccccccccfffffffeeeeeee"))
+	}
+}

@@ -48,6 +48,7 @@ func CountPathsTo(start, target *GridPoint) int {
 // It is supposed to take into account various blockedPoints
 
 // FindPathTo is a DFS algorithm variant retuning one path to the target point
+// Time and space complexity are O(2^n) n is the number of steps necessary to find a path
 func FindPathTo(start, target *GridPoint, blockedPoints map[GridPoint]struct{}) []GridPoint {
 	if *start == *target {
 		return []GridPoint{*target}
