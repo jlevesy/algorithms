@@ -1,5 +1,9 @@
 package sorts
 
+import (
+	"sync"
+)
+
 // MergeSort is an implementation of a mergesort (noshit?)
 // <3 slices
 // Time complexity: O(n * log n)
@@ -14,8 +18,38 @@ func mergeSort(input, helper []int) {
 	if len(input) <= 1 {
 		return
 	}
+
 	mergeSort(input[:len(input)/2], helper[:len(input)/2])
 	mergeSort(input[len(input)/2:], helper[len(input)/2:])
+	merge(input, helper)
+}
+
+// ParallelMergeSort is a mergeSort but done in parallel
+func ParallelMergeSort(input []int) {
+	helper := make([]int, len(input))
+
+	parallelMergeSort(input, helper)
+}
+
+func parallelMergeSort(input, helper []int) {
+	if len(input) <= 1 {
+		return
+	}
+
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+
+	go func() {
+		mergeSort(input[:len(input)/2], helper[:len(input)/2])
+		wg.Done()
+	}()
+	go func() {
+		mergeSort(input[len(input)/2:], helper[len(input)/2:])
+		wg.Done()
+	}()
+
+	wg.Wait()
+
 	merge(input, helper)
 }
 

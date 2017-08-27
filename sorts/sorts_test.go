@@ -1,6 +1,7 @@
 package sorts
 
 import (
+	"math/rand"
 	"reflect"
 	"testing"
 )
@@ -41,6 +42,38 @@ func TestSorts(t *testing.T) {
 			if !reflect.DeepEqual(mergeOutput, test.Expectation) {
 				t.Error("Invalid result for MergeSort", mergeOutput, test.Expectation)
 			}
+
+			parallelMergeOutput := clone(test.Input)
+			ParallelMergeSort(parallelMergeOutput)
+			if !reflect.DeepEqual(parallelMergeOutput, test.Expectation) {
+				t.Error("Invalid result for ConcurentMergeSort", parallelMergeOutput, test.Expectation)
+			}
 		})
 	}
+}
+
+func generateInput(length int) []int {
+	out := make([]int, length)
+
+	for i := range out {
+		out[i] = rand.Int()
+	}
+
+	return out
+}
+
+func BenchmarkMergeSort(b *testing.B) {
+	input := generateInput(2000000)
+
+	b.Run("Sync", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			MergeSort(input)
+		}
+	})
+
+	b.Run("Parallel", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ParallelMergeSort(input)
+		}
+	})
 }
