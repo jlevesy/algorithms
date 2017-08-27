@@ -68,3 +68,24 @@ func TestFindPathTo(t *testing.T) {
 		})
 	}
 }
+
+func TestGenerateParenthesis(t *testing.T) {
+	cases := []struct {
+		Label       string
+		Count       int
+		Expectation []string
+	}{
+
+		{"NominalCase", 2, []string{"()()", "(())"}},
+		{"NominalCase", 3, []string{"()()()", "(())()", "()(())", "(()())", "((()))"}},
+	}
+
+	for _, test := range cases {
+		t.Run(test.Label, func(t *testing.T) {
+			res := GenerateParenthesis(test.Count)
+			if !reflect.DeepEqual(res, test.Expectation) {
+				t.Error("Invalid result", res)
+			}
+		})
+	}
+}

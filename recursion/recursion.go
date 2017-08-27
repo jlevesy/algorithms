@@ -76,3 +76,66 @@ func FindPathTo(start, target *GridPoint, blockedPoints map[GridPoint]struct{}) 
 
 	return []GridPoint{}
 }
+
+// Implement an algorithm to print all valid (properly opened and closed) combinations
+// of n pairs of parentheses.
+
+// Questions asked:
+// - ...? Problem seems pretty clear to me
+
+// Idea
+// Sounds like a recursion problem.
+// We notice that to create N == 2, we insert a parenthesis pairs
+// at each possible position for each previous solution.
+// It can lead to duplicates, so we deduplicate at the end.
+
+// Examples
+
+// N == 3 => ["()()()", "(())()", "()(())", ((()))"]
+// N == 2 => ["()()", "(())"]
+// N == 1 => ["()"]
+// N == 0 => []
+
+// GenerateParenthesis is an implementation of that
+func GenerateParenthesis(pairs int) []string {
+	res := []string{}
+	index := map[string]struct{}{}
+	generated := generateParenthesisRecursion(pairs, 0, 0)
+
+	for _, s := range generated {
+		if _, ok := index[s]; ok {
+			continue
+		}
+
+		index[s] = struct{}{}
+		res = append(res, s)
+	}
+
+	return res
+}
+
+func insertAt(in, chunk string, position int) string {
+	return in[:position] + chunk + in[position:]
+}
+
+func generateParenthesisRecursion(pairs, openCount, CloseCount int) []string {
+	res := []string{}
+
+	if pairs == 0 {
+		return res
+	}
+
+	if pairs == 1 {
+		return []string{"()"}
+	}
+
+	previousLevel := generateParenthesisRecursion(pairs-1, 0, 0)
+
+	for _, s := range previousLevel {
+		for index := range s {
+			res = append(res, insertAt(s, "()", index))
+		}
+	}
+
+	return res
+}
