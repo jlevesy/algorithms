@@ -46,7 +46,13 @@ func TestSorts(t *testing.T) {
 			parallelMergeOutput := clone(test.Input)
 			ParallelMergeSort(parallelMergeOutput)
 			if !reflect.DeepEqual(parallelMergeOutput, test.Expectation) {
-				t.Error("Invalid result for ConcurentMergeSort", parallelMergeOutput, test.Expectation)
+				t.Error("Invalid result for ParallelMergeSort", parallelMergeOutput, test.Expectation)
+			}
+
+			quickOutput := clone(test.Input)
+			QuickSort(quickOutput)
+			if !reflect.DeepEqual(quickOutput, test.Expectation) {
+				t.Error("Invalid result for QuickSort", quickOutput, test.Expectation)
 			}
 		})
 	}
@@ -62,16 +68,16 @@ func generateInput(length int) []int {
 	return out
 }
 
-func BenchmarkMergeSort(b *testing.B) {
+func BenchmarkSorts(b *testing.B) {
 	input := generateInput(2000000)
 
-	b.Run("Sync", func(b *testing.B) {
+	b.Run("MergeSort", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			MergeSort(input)
 		}
 	})
 
-	b.Run("Parallel", func(b *testing.B) {
+	b.Run("ParallelMergeSort", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			ParallelMergeSort(input)
 		}
